@@ -1,0 +1,206 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>sqladviser</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">sql</a>
+        </div>
+    </nav>
+
+
+
+
+<div class="container">
+    <div class="alert-wrapper">
+        <div class="alert alert-primary" role="alert">
+            sqladvisor 优化建议
+        </div>
+    </div>
+    <div class="filter-wrapper">
+        <form id="form1">
+            <div class="form-group row align-items-center">
+                <div class="col-sm-2">IP</div>
+                <div class="col-sm-10 row">
+                    <div class="col-8">
+                        <input type="text" class="form-control" name="IP" value="" autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <div class="col-sm-2">实例端口</div>
+                <div class="col-sm-10 row">
+                    <div class="col-8">
+                        <input type="text" class="form-control" name="port" value="" autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <div class="col-sm-2">库名</div>
+                <div class="col-sm-10 row">
+                    <div class="col-8">
+                        <input type="text" class="form-control" name="database" value="" autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <div class="col-sm-2">用户名</div>
+                <div class="col-sm-10 row">
+                    <div class="col-8">
+                        <input type="text" class="form-control" name="username" value="" autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <div class="col-sm-2">密码</div>
+                <div class="col-sm-10 row">
+                    <div class="col-8">
+                        <input type="text" class="form-control" name="passwd" value="" autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row align-items-center">
+                <div class="col-sm-2">sql</div>
+                <div class="col-sm-10 row">
+                    <div class="col-8">
+                        <input type="text" class="form-control" name="sql" value="" autofocus>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <button id="btn" class="btn btn-primary" onclick="confirmAct()">
+            <b>执行</b>
+        </button>
+    </div>
+
+
+</div>
+
+
+<div id="mask" class="mask"></div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					SQL优化建议
+				</h4>
+			</div>
+			<div class="modal-body">
+                <div id="advisor">
+
+                </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+<style>
+
+.mask {
+        position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #777;
+        z-index: 1002; left: 0px;
+        opacity:0.5; -moz-opacity:0.5;
+}
+</style>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#form1').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            IP: {
+                message: 'The IP is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'IP不能为空'
+                    },
+                    ip: {
+                        message: 'IP格式不正确'
+                    }
+                }
+            },
+
+        }
+    });
+});
+
+function confirmAct(){
+    //var action=action;
+    $('#form1').data('bootstrapValidator').validate();//手动对表单进行校检
+    if (!$('#form1').data('bootstrapValidator').isValid()) {//判断校检是否通过
+        // alert("验证不通过");
+        return;
+    }else {
+        showMask();
+        return manage();
+    }
+}
+
+function manage() {
+    var formdata=new FormData($("#form1")[0]);
+    $.ajax({
+        url: '/',
+        type: 'POST',
+        data: formdata,
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success:function (callback) {
+            console.log(callback);
+            hideMask();
+            var advisor_list=JSON.parse(callback);
+            var html_ele='';
+            $.each(advisor_list,function (index,item) {
+                html_ele +='<p>'+item+'</p>';
+            });
+            console.log(html_ele);
+            $('#advisor').html(html_ele);
+            $('#myModal').modal('show');
+
+        },
+
+    });
+}
+
+
+
+
+//显示遮罩层
+function showMask(){
+    $("#mask").css("height",$(document).height());
+    $("#mask").css("width",$(document).width());
+    $("#mask").show();
+}
+//隐藏遮罩层
+function hideMask(){
+
+    $("#mask").hide();
+}
+
+
+</script>
+</body>
+</html>
