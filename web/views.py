@@ -10,10 +10,9 @@ def index(request):
         ip=request.POST.get('IP','')
         port=request.POST.get('port','')
         database=request.POST.get('database','')
-        username=request.POST.get('user','')
+        username=request.POST.get('username','')
         password=request.POST.get('passwd','')
         sql=request.POST.get('sql','')
-        print(ip,port,database,username,password,sql)
         if ip and port and database and username and password and sql:
             cmd="/usr/local/webserver/SQLadvisor/sqladvisor/sqladvisor -h {} -u {} -p '{}' -P {} -d {} -q \"{}\" -v 1 2> /tmp/sql.log;cat /tmp/sql.log".format(ip,username,password,port,database,sql)
             try:
