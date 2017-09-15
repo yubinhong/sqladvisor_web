@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="584954a6-17b5-4a39-9d26-b5cc69d9566c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,17 +64,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="566">
-              <caret line="120" column="87" lean-forward="false" selection-start-line="120" selection-start-column="87" selection-end-line="120" selection-end-column="87" />
+            <state relative-caret-position="550">
+              <caret line="119" column="100" lean-forward="false" selection-start-line="119" selection-start-column="100" selection-end-line="119" selection-end-column="100" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="44">
@@ -131,8 +131,8 @@
         <option value="$PROJECT_DIR$/statics/js/main.js" />
         <option value="$PROJECT_DIR$/sql/settings.py" />
         <option value="$PROJECT_DIR$/web/views.py" />
-        <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/templates/index.html" />
       </list>
     </option>
   </component>
@@ -590,7 +590,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505441778267</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="【新增】ignore">
+      <created>1505441839606</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1505441839606</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -634,7 +641,8 @@
     <MESSAGE value="【调试】参数为空" />
     <MESSAGE value="【fix】关闭调试" />
     <MESSAGE value="【fix】调试modal" />
-    <option name="LAST_COMMIT_MESSAGE" value="【fix】调试modal" />
+    <MESSAGE value="【新增】ignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="【新增】ignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -743,18 +751,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="566">
-          <caret line="120" column="87" lean-forward="false" selection-start-line="120" selection-start-column="87" selection-end-line="120" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="119" column="100" lean-forward="false" selection-start-line="119" selection-start-column="100" selection-end-line="119" selection-end-column="100" />
           <folding />
         </state>
       </provider>
