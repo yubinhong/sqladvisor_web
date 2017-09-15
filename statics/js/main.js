@@ -102,7 +102,7 @@ function manage() {
             console.log(html_ele);
             $('#advisor').html(html_ele);
             $('#myModal').modal('show');
-
+            $("#btn2").removeClass('hide');
         },
 
     });
