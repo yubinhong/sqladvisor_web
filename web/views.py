@@ -15,7 +15,7 @@ def index(request):
         sql=request.POST.get('sql','')
         sql=sql.replace("`","")
         if ip and port and database and username and password and sql:
-            cmd="/usr/local/webserver/SQLadvisor/sqladvisor/sqladvisor -h {} -u {} -p '{}' -P {} -d {} -q \"{}\" -v 1 2> /tmp/sql.log;cat /tmp/sql.log".format(ip,username,password,port,database,sql)
+            cmd="/usr/local/webserver/SQLadvisor/sqladvisor/sqladvisor -h {} -u {} -p '{}' -P {} -d {} -q \"{}\" -v 1".format(ip,username,password,port,database,sql)
             try:
                 result=utils.ssh_cmd("192.168.100.2",22,cmd)
             except Exception as e:

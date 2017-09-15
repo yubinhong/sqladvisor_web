@@ -9,6 +9,6 @@ def ssh_cmd(ip,port,cmd):
     s.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     s.connect(hostname=ip, username='root', port=port, key_filename=settings.RSA_PRIVATE_KEY_FILE)
     stdin, stdout, stderr = s.exec_command(cmd)
-    result = stdout.readlines()
+    result = stderr.readlines()
     s.close()
     return result
