@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
     <link href="https://cdn.bootcss.com/bootstrap-modal/2.2.6/css/bootstrap-modal.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.bootcss.com/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/statics/css/main.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">sql</a>
+            <a class="navbar-brand" href="/">SQL</a>
         </div>
     </nav>
 
@@ -31,23 +32,23 @@
                 <div class="col-sm-2">IP</div>
                 <div class="col-sm-10 row">
                     <div class="col-8">
-                        <input type="text" class="form-control" name="IP" value="" autofocus>
+                        <input type="text" class="form-control" name="IP" value="" placeholder="192.168.0.1" autofocus>
                     </div>
                 </div>
             </div>
             <div class="form-group row align-items-center">
-                <div class="col-sm-2">实例端口</div>
+                <div class="col-sm-2">端口</div>
                 <div class="col-sm-10 row">
                     <div class="col-8">
-                        <input type="text" class="form-control" name="port" value="" autofocus>
+                        <input type="text" class="form-control" name="port" value="3306" autofocus>
                     </div>
                 </div>
             </div>
             <div class="form-group row align-items-center">
-                <div class="col-sm-2">库名</div>
+                <div class="col-sm-2">数据库</div>
                 <div class="col-sm-10 row">
                     <div class="col-8">
-                        <input type="text" class="form-control" name="database" value="" autofocus>
+                        <input type="text" class="form-control" name="database" value="" placeholder="dbname" autofocus>
                     </div>
                 </div>
             </div>
@@ -55,7 +56,7 @@
                 <div class="col-sm-2">用户名</div>
                 <div class="col-sm-10 row">
                     <div class="col-8">
-                        <input type="text" class="form-control" name="username" value="" autofocus>
+                        <input type="text" class="form-control" name="username" value="" placeholder="root" autofocus>
                     </div>
                 </div>
             </div>
@@ -63,22 +64,22 @@
                 <div class="col-sm-2">密码</div>
                 <div class="col-sm-10 row">
                     <div class="col-8">
-                        <input type="text" class="form-control" name="passwd" value="" autofocus>
+                        <input type="password" class="form-control" name="passwd" value="" placeholder="password" autofocus>
                     </div>
                 </div>
             </div>
             <div class="form-group row align-items-center">
-                <div class="col-sm-2">sql</div>
+                <div class="col-sm-2">SQL</div>
                 <div class="col-sm-10 row">
                     <div class="col-8">
-                        <input type="text" class="form-control" name="sql" value="" autofocus>
+                        <input type="text" class="form-control" name="sql" value="" placeholder="SELECT *** FROM ***" autofocus>
                     </div>
                 </div>
             </div>
 
         </form>
         <button id="btn" class="btn btn-primary" onclick="confirmAct()">
-            <b>执行</b>
+            <b>分析</b>
         </button>
     </div>
 
@@ -111,101 +112,12 @@
 	</div><!-- /.modal -->
 </div>
 
-<style>
-
-.mask {
-        position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #777;
-        z-index: 1002; left: 0px;
-        opacity:0.5; -moz-opacity:0.5;
-}
-</style>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#form1').bootstrapValidator({
-        message: 'This value is not valid',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            IP: {
-                message: 'The IP is not valid',
-                validators: {
-                    notEmpty: {
-                        message: 'IP不能为空'
-                    },
-                    ip: {
-                        message: 'IP格式不正确'
-                    }
-                }
-            },
-
-        }
-    });
-});
-
-function confirmAct(){
-    //var action=action;
-    $('#form1').data('bootstrapValidator').validate();//手动对表单进行校检
-    if (!$('#form1').data('bootstrapValidator').isValid()) {//判断校检是否通过
-        // alert("验证不通过");
-        return;
-    }else {
-        showMask();
-        return manage();
-    }
-}
-
-function manage() {
-    var formdata=new FormData($("#form1")[0]);
-    $.ajax({
-        url: '/',
-        type: 'POST',
-        data: formdata,
-        async: true,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success:function (callback) {
-            console.log(callback);
-            hideMask();
-            var advisor_list=JSON.parse(callback);
-            var html_ele='';
-            $.each(advisor_list,function (index,item) {
-                html_ele +='<p>'+item+'</p>';
-            });
-            console.log(html_ele);
-            $('#advisor').html(html_ele);
-            $('#myModal').modal('show');
-
-        },
-
-    });
-}
-
-
-
-
-//显示遮罩层
-function showMask(){
-    $("#mask").css("height",$(document).height());
-    $("#mask").css("width",$(document).width());
-    $("#mask").show();
-}
-//隐藏遮罩层
-function hideMask(){
-
-    $("#mask").hide();
-}
-
-
-</script>
+    <script src="/staticsjs/main.js"></script>
 </body>
 </html>
