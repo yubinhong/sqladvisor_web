@@ -121,3 +121,6 @@ RSA_PRIVATE_KEY_FILE= '%s/%s'%(BASE_DIR,'rsa_key/id_rsa')
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    "%s/%s" %(BASE_DIR, "statics"),
+]
