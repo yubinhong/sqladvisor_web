@@ -13,6 +13,7 @@ def index(request):
         username=request.POST.get('username','')
         password=request.POST.get('passwd','')
         sql=request.POST.get('sql','')
+        sql=sql.replace("`","")
         if ip and port and database and username and password and sql:
             cmd="/usr/local/webserver/SQLadvisor/sqladvisor/sqladvisor -h {} -u {} -p '{}' -P {} -d {} -q \"{}\" -v 1 2> /tmp/sql.log;cat /tmp/sql.log".format(ip,username,password,port,database,sql)
             try:
